@@ -30,11 +30,8 @@ public class EmployeeService {
         employeeRepo.deleteById(id);
     }
 
-    public List<Employee> findAllEmployees() {
-        Iterable<Employee> iterable = employeeRepo.findAll();
-        List<Employee> allEmployees = StreamSupport.stream(iterable.spliterator(), false)
-                .collect(Collectors.toList());
-        return allEmployees;
+    public Iterable<Employee> findAllEmployees() {
+        return employeeRepo.findAll();
     }
 
     public Employee findEmployeeById(Long id) {

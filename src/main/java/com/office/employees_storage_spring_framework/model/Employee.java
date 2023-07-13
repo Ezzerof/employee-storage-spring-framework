@@ -6,20 +6,14 @@ import jakarta.persistence.*;
 @Entity
 public class Employee implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO) // will autoincrement ID
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // .AUTO will autoincrement ID but with random numbers
     @Column(nullable = false, updatable = false) // will prohibit null value for empId and will not allow to update it
     private long id;
-    @Column(name = "first_name")
     private String firstName;
-    @Column(name = "second_name")
     private String secondName;
-    @Column(name = "email")
     private String email;
-    @Column(name = "phone_number")
     private String phoneNumber;
-    @Column(name = "address")
     private String address;
-    @Column(name = "town")
     private String town;
 
     public Employee(long id, String firstName, String secondName, String email, String phoneNumber, String address, String town) {
@@ -32,6 +26,8 @@ public class Employee implements Serializable {
         this.town = town;
     }
 
+    public Employee() {
+    }
 
     public long getEmpId() {
         return id;

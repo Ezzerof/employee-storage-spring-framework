@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @RestController
 @RequestMapping("/employee")
@@ -20,7 +22,11 @@ public class EmployeeController {
 
     @GetMapping("/all")
     public ResponseEntity<List<Employee>> getAllEmployees() {
-        List<Employee> allEmployees = service.findAllEmployees();
+        Iterable<Employee> iterable = service.findAllEmployees();
+        List<Employee> allEmployees = StreamSupport.stream(iterable.spliterator(), false)
+                .toList();
+        System.out.println(allEmployees);
+
         return new ResponseEntity<>(allEmployees, HttpStatus.OK);
     }
 
