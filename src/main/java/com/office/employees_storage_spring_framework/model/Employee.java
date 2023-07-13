@@ -1,18 +1,29 @@
 package com.office.employees_storage_spring_framework.model;
 
-public class Employee {
+import java.io.Serializable;
+import jakarta.persistence.*;
 
-
-    private int empId;
+@Entity
+public class Employee implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO) // will autoincrement ID
+    @Column(nullable = false, updatable = false) // will prohibit null value for empId and will not allow to update it
+    private long id;
+    @Column(name = "first_name")
     private String firstName;
+    @Column(name = "second_name")
     private String secondName;
+    @Column(name = "email")
     private String email;
-    private int phoneNumber;
+    @Column(name = "phone_number")
+    private String phoneNumber;
+    @Column(name = "address")
     private String address;
+    @Column(name = "town")
     private String town;
 
-    public Employee(int empId, String firstName, String secondName, String email, int phoneNumber, String address, String town) {
-        this.empId = empId;
+    public Employee(long id, String firstName, String secondName, String email, String phoneNumber, String address, String town) {
+        this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
         this.email = email;
@@ -22,12 +33,12 @@ public class Employee {
     }
 
 
-    public int getEmpId() {
-        return empId;
+    public long getEmpId() {
+        return id;
     }
 
-    public void setEmpId(int empId) {
-        this.empId = empId;
+    public void setEmpId(long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -54,11 +65,11 @@ public class Employee {
         this.email = email;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
