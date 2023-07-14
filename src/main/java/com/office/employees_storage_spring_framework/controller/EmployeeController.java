@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
@@ -29,9 +29,8 @@ public class EmployeeController {
 
         return new ResponseEntity<>(allEmployees, HttpStatus.OK);
     }
-
-    @GetMapping("/find")
-    public ResponseEntity<Employee> getEmployeeById(@RequestParam Long id) {
+    @GetMapping("/find/{id}")
+    public ResponseEntity<Employee> getEmployeeById(@PathVariable("id") Long id) {
         Employee employee = service.findEmployeeById(id);
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }
@@ -48,8 +47,8 @@ public class EmployeeController {
         return new ResponseEntity<>(tempEmployee, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<?> updateEmployee(@RequestParam Long id) {
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> updateEmployee(@PathVariable("id") Long id) {
         service.deleteEmployee(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

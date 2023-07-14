@@ -1,0 +1,11 @@
+td, th {
+    padding: 10px 20px;  /* you can adjust these values as needed */
+  }
+
+  .form-group, .search-group {
+    padding: 10px 20px;
+  }
+
+  form label {
+    margin-right: 10px;
+  }
