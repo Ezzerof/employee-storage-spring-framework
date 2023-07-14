@@ -8,5 +8,5 @@ import org.springframework.data.repository.CrudRepository;
  *  By using JpaRepository(Class, Type) we can use the CRUD methods from it
  */
 
-public interface EmployeeRepo extends CrudRepository<Employee, Long> {
+public interface EmployeeDAO extends CrudRepository<Employee, Long> {
 }

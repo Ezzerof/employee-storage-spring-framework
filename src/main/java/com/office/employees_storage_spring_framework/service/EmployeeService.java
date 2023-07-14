@@ -2,7 +2,7 @@ package com.office.employees_storage_spring_framework.service;
 
 import com.office.employees_storage_spring_framework.exception.EmployeeNotFoundException;
 import com.office.employees_storage_spring_framework.model.Employee;
-import com.office.employees_storage_spring_framework.repository.EmployeeRepo;
+import com.office.employees_storage_spring_framework.repository.EmployeeDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,31 +12,31 @@ import java.util.Optional;
 @Service
 public class EmployeeService {
 
-    private final EmployeeRepo employeeRepo;
+    private final EmployeeDAO employeeDAO;
 
     @Autowired
-    public EmployeeService(EmployeeRepo employeeRepo) {
-        this.employeeRepo = employeeRepo;
+    public EmployeeService(EmployeeDAO employeeDAO) {
+        this.employeeDAO = employeeDAO;
     }
 
     public Employee addEmployee(Employee employee) {
-        return employeeRepo.save(employee);
+        return employeeDAO.save(employee);
     }
 
     public void deleteEmployee(Long id) {
         Employee temployee = findEmployeeById(id);
         if (temployee != null)
-            employeeRepo.deleteById(id);
+            employeeDAO.deleteById(id);
         else
             throw new EmployeeNotFoundException("Employee by id: " + id + " not found.");
     }
 
     public Iterable<Employee> findAllEmployees() {
-        return employeeRepo.findAll();
+        return employeeDAO.findAll();
     }
 
     public Employee findEmployeeById(Long id) {
-        Optional optional = employeeRepo.findById(id);
+        Optional optional = employeeDAO.findById(id);
 
         if (optional.isPresent())
             return (Employee) optional.get();
@@ -45,6 +45,6 @@ public class EmployeeService {
     }
 
     public Employee updateEmployee(Employee employee) {
-        return employeeRepo.save(employee);
+        return employeeDAO.save(employee);
     }
 }

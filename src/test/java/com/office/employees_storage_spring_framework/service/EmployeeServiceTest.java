@@ -1,8 +1,8 @@
 package com.office.employees_storage_spring_framework.service;
 
 import com.office.employees_storage_spring_framework.model.Employee;
-import com.office.employees_storage_spring_framework.repository.EmployeeRepo;
-import com.office.employees_storage_spring_framework.repository.EmployeeRepoStub;
+import com.office.employees_storage_spring_framework.repository.EmployeeDAO;
+import com.office.employees_storage_spring_framework.repository.EmployeeDAOStub;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,12 +14,12 @@ class EmployeeServiceTest {
 
     private static EmployeeService employeeService;
 
-    private static EmployeeRepo repo;
+    private static EmployeeDAO repo;
     private static Employee firstEmployee;
 
     @BeforeAll
     public static void setUp() {
-        repo = new EmployeeRepoStub();
+        repo = new EmployeeDAOStub();
         employeeService = new EmployeeService(repo);
         firstEmployee = employeeService.addEmployee(new Employee("Andrew", "Flower", "a.flower@gmail.com", "59876514", "13 Highway", "New York"));
         firstEmployee.setEmpId(1);

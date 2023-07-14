@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
-public class EmployeeRepoStub implements EmployeeRepo {
+public class EmployeeDAOStub implements EmployeeDAO {
 
     List<Employee> list = new ArrayList<>();
 
