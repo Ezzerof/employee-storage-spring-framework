@@ -25,7 +25,6 @@ public class EmployeeController {
         Iterable<Employee> iterable = service.findAllEmployees();
         List<Employee> allEmployees = StreamSupport.stream(iterable.spliterator(), false)
                 .toList();
-        System.out.println(allEmployees);
 
         return new ResponseEntity<>(allEmployees, HttpStatus.OK);
     }
