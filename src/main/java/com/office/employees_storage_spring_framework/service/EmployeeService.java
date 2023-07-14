@@ -24,7 +24,11 @@ public class EmployeeService {
     }
 
     public void deleteEmployee(Long id) {
-        employeeRepo.deleteById(id);
+        Employee temployee = findEmployeeById(id);
+        if (temployee != null)
+            employeeRepo.deleteById(id);
+        else
+            throw new EmployeeNotFoundException("Employee by id: " + id + " not found.");
     }
 
     public Iterable<Employee> findAllEmployees() {
