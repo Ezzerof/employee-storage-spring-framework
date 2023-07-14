@@ -7,8 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/employee")
@@ -29,6 +29,7 @@ public class EmployeeController {
 
         return new ResponseEntity<>(allEmployees, HttpStatus.OK);
     }
+
     @GetMapping("/find/{id}")
     public ResponseEntity<Employee> getEmployeeById(@PathVariable("id") Long id) {
         Employee employee = service.findEmployeeById(id);
