@@ -1,4 +1,4 @@
-# manage-employees-spring-framework
+# Manage Employees Spring Framework
 
 This is a comprehensive web application that uses Java, Spring Boot, JPA, MySQL, ORM, Angular, DAO, DTO, MVC and Dependency injection frameworks to manage employees.
 
