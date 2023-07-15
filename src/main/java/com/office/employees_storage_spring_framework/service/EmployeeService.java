@@ -1,7 +1,8 @@
 package com.office.employees_storage_spring_framework.service;
 
-import com.office.employees_storage_spring_framework.dto.EmployeeDTO;
-import com.office.employees_storage_spring_framework.dto.PrivateEmployeeDTO;
+import com.office.employees_storage_spring_framework.dto.OutputEmployeeDTO;
+import com.office.employees_storage_spring_framework.dto.InputEmployeeDTO;
+import com.office.employees_storage_spring_framework.dto.UpdateEmployeeDTO;
 import com.office.employees_storage_spring_framework.exception.EmployeeNotFoundException;
 import com.office.employees_storage_spring_framework.model.Employee;
 import com.office.employees_storage_spring_framework.repository.EmployeeDAO;
@@ -23,27 +24,27 @@ public class EmployeeService implements AppService {
         this.employeeDAO = employeeDAO;
     }
 
-    public Employee addEmployee(PrivateEmployeeDTO employee) {
-        Employee convertedEmployee = privateEmployeeDtoToEmployee(employee);
+    public Employee addEmployee(InputEmployeeDTO employee) {
+        Employee convertedEmployee = employeeDtoToEmployee(employee);
         return employeeDAO.save(convertedEmployee);
     }
 
     public void deleteEmployee(Long id) {
-        EmployeeDTO temployee = findEmployeeById(id);
+        OutputEmployeeDTO temployee = findEmployeeById(id);
         if (temployee != null)
             employeeDAO.deleteById(id);
         else
             throw new EmployeeNotFoundException("Employee by id: " + id + " not found.");
     }
 
-    public List<EmployeeDTO> findAllEmployees() {
+    public List<OutputEmployeeDTO> findAllEmployees() {
         return  employeeDAO.findAll()
                 .stream()
                 .map(employee -> employeeToEmployeeDTO(employee))
                 .collect(Collectors.toList());
     }
 
-    public EmployeeDTO findEmployeeById(Long id) {
+    public OutputEmployeeDTO findEmployeeById(Long id) {
         Optional<Employee> optional = employeeDAO.findById(id);
 
         if (optional.isPresent())
@@ -52,37 +53,69 @@ public class EmployeeService implements AppService {
         throw new EmployeeNotFoundException("Employee by id: " + id + " not found.");
     }
 
-    public Employee updateEmployee(PrivateEmployeeDTO employee) {
-        Employee convertedEmployee = privateEmployeeDtoToEmployee(employee);
-        return employeeDAO.save(convertedEmployee);
+    public Employee getEmployeeById(Long id) {
+        Optional<Employee> optional = employeeDAO.findById(id);
+
+        if (optional.isPresent())
+            return optional.get();
+        throw new EmployeeNotFoundException("Employee by id: " + id + " not found.");
     }
 
-    private EmployeeDTO employeeToEmployeeDTO(Employee employee) {
-        return EmployeeDTO.builder()
+    public Employee updateEmployee(Long id, UpdateEmployeeDTO updateEmployee) {
+        Employee existedEmployee = getEmployeeById(id);
+        return employeeDAO.save(updateEmployeeDTO(updateEmployee, existedEmployee));
+    }
+
+    private OutputEmployeeDTO employeeToEmployeeDTO(Employee employee) {
+        return OutputEmployeeDTO.builder()
+                .id(employee.getId())
                 .title(employee.getTitle())
                 .firstName(employee.getFirstName())
                 .secondName(employee.getSecondName())
                 .age(employee.getAge())
                 .picture(employee.getPicture())
                 .email(employee.getEmail())
-                .username(employee.getUsername()).build();
+                .username(employee.getUsername())
+                .address(employee.getAddress())
+                .town(employee.getTown())
+                .country(employee.getCountry())
+                .phoneNumber(employee.getPhoneNumber()).build();
 
     }
 
-    private Employee privateEmployeeDtoToEmployee(PrivateEmployeeDTO privateEmployeeDTO) {
-        return Employee.builder()
-                .title(privateEmployeeDTO.getTitle())
-                .firstName(privateEmployeeDTO.getFirstName())
-                .secondName(privateEmployeeDTO.getSecondName())
-                .age(privateEmployeeDTO.getAge())
-                .email(privateEmployeeDTO.getEmail())
-                .phoneNumber(privateEmployeeDTO.getPhoneNumber())
-                .username(privateEmployeeDTO.getUsername())
-                .picture(privateEmployeeDTO.getPicture())
-                .password(privateEmployeeDTO.getPassword())
-                .address(privateEmployeeDTO.getAddress())
-                .country(privateEmployeeDTO.getCountry())
-                .town(privateEmployeeDTO.getTown())
-                .build();
+    private Employee updateEmployeeDTO(UpdateEmployeeDTO updateEmployeeDTO, Employee existingEmployee) {
+        existingEmployee.setTitle(updateEmployeeDTO.getTitle());
+        existingEmployee.setFirstName(updateEmployeeDTO.getFirstName());
+        existingEmployee.setSecondName(updateEmployeeDTO.getSecondName());
+        existingEmployee.setAge(updateEmployeeDTO.getAge());
+        existingEmployee.setEmail(updateEmployeeDTO.getEmail());
+        existingEmployee.setUsername(updateEmployeeDTO.getUsername());
+        existingEmployee.setAddress(updateEmployeeDTO.getAddress());
+        existingEmployee.setTown(updateEmployeeDTO.getTown());
+        existingEmployee.setCountry(updateEmployeeDTO.getCountry());
+        existingEmployee.setPhoneNumber(updateEmployeeDTO.getPhoneNumber());
+        existingEmployee.setPicture(updateEmployeeDTO.getPicture());
+
+        return existingEmployee;
     }
+
+    private Employee employeeDtoToEmployee(InputEmployeeDTO privateEmployeeDTO) {
+        Employee employee = new Employee(
+                privateEmployeeDTO.getTitle(),
+                privateEmployeeDTO.getFirstName(),
+                privateEmployeeDTO.getSecondName(),
+                privateEmployeeDTO.getAge(),
+                privateEmployeeDTO.getEmail(),
+                privateEmployeeDTO.getPhoneNumber(),
+                privateEmployeeDTO.getAddress(),
+                privateEmployeeDTO.getCountry(),
+                privateEmployeeDTO.getTown(),
+                privateEmployeeDTO.getUsername(),
+                privateEmployeeDTO.getPassword(),
+                privateEmployeeDTO.getPicture()
+        );
+
+        return employee;
+    }
+
 }

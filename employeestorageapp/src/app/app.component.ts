@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Employee } from './employee';
+import { Employee, ExtendedEmployee } from './employee';
 import { EmployeeService } from './employee.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -9,19 +9,25 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  empId:number;
+  id:number;
   employee:Employee;
   selectedEmployee:Employee | null = null;
   showUpdateForm: boolean = false;
   
-  newEmployee: Employee = {
-    empId: null,
-    firstName:'',
-    secondName:'',
-    email:'',
-    phoneNumber:'',
+  newEmployee: ExtendedEmployee = {
+    id: null,
+    title:'',
+    firstName: '',
+    secondName: '',
+    age:'',
+    email: '',
+    username:'',
+    picture:'',
+    password:'',
+    town:'',
+    country:'',
     address:'',
-    town:''
+    phoneNumber:''
   }
   
   employees: Employee[];
@@ -44,7 +50,7 @@ export class AppComponent {
   }
 
   searchEmployee() {
-    this.employeeService.findEmployees(this.empId)
+    this.employeeService.findEmployees(this.id)
     .subscribe(data => {
       this.employee = data;
       this.showUpdateForm = false;
@@ -57,13 +63,19 @@ export class AppComponent {
       console.log(response);
       this.getEmployees(); // to refresh the list of employees
       this.newEmployee = { // reset the form
-        empId: null,
+        id: null,
+        title:'',
         firstName: '',
-        secondName:'',
-        email:'',
-        phoneNumber:'',
+        secondName: '',
+        age:'',
+        email: '',
+        username:'',
+        picture:'',
+        password:'',
+        town:'',
+        country:'',
         address:'',
-        town:''
+        phoneNumber:''
       };
     },
     (error: HttpErrorResponse) => {
@@ -73,7 +85,7 @@ export class AppComponent {
   }
 
   removeEmployee(employee: Employee):void {
-    this.employeeService.deleteEmployees(employee.empId)
+    this.employeeService.deleteEmployees(employee.id)
     .subscribe(
       () => {
         console.log("Employee deleted successfully");

@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class EmployeeDTO {
+public class UpdateEmployeeDTO {
     @NotEmpty
     @Pattern(regexp = "[A-Za-z]{2,3}",
             message = "title must contain only letters between 2 to 3")
@@ -43,6 +43,4 @@ public class EmployeeDTO {
     private String town;
     @NotEmpty
     private String picture;
-
-
 }

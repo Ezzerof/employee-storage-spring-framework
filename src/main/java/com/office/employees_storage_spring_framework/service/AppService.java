@@ -1,21 +1,22 @@
 package com.office.employees_storage_spring_framework.service;
 
-import com.office.employees_storage_spring_framework.dto.EmployeeDTO;
-import com.office.employees_storage_spring_framework.dto.PrivateEmployeeDTO;
+import com.office.employees_storage_spring_framework.dto.OutputEmployeeDTO;
+import com.office.employees_storage_spring_framework.dto.InputEmployeeDTO;
+import com.office.employees_storage_spring_framework.dto.UpdateEmployeeDTO;
 import com.office.employees_storage_spring_framework.model.Employee;
 
 import java.util.List;
 
 public interface AppService {
 
-    Employee addEmployee(PrivateEmployeeDTO employee);
+    Employee addEmployee(InputEmployeeDTO employee);
 
     void deleteEmployee(Long id);
 
-    List<EmployeeDTO> findAllEmployees();
+    List<OutputEmployeeDTO> findAllEmployees();
 
-    EmployeeDTO findEmployeeById(Long id);
+    OutputEmployeeDTO findEmployeeById(Long id);
 
-    Employee updateEmployee(PrivateEmployeeDTO employee);
+    Employee updateEmployee(Long id, UpdateEmployeeDTO employee);
 
 }
