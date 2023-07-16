@@ -49,6 +49,18 @@ export class AppComponent {
     );
   }
 
+  generateEmployee(): void {
+    this.employeeService.generateEmployee().subscribe(
+      (employee: Employee) => {
+        // Handle the generated employee response here
+        console.log(employee);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
   searchEmployee() {
     this.employeeService.findEmployees(this.id)
     .subscribe(data => {

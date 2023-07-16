@@ -31,4 +31,8 @@ export class EmployeeService {
     return this.http.delete<void>(`${this.apiServerUrl}/employee/delete/${employeeId}`);
   }
 
+  public generateEmployee(): Observable<Employee> {
+    return this.http.post<Employee>(`${this.apiServerUrl}/employee/random`, {});
+  }
+
 }

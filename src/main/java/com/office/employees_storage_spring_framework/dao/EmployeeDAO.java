@@ -1,4 +1,4 @@
-package com.office.employees_storage_spring_framework.repository;
+package com.office.employees_storage_spring_framework.dao;
 
 
 import com.office.employees_storage_spring_framework.model.Employee;

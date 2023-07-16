@@ -1,11 +1,12 @@
 package com.office.employees_storage_spring_framework.service;
 
-import com.office.employees_storage_spring_framework.dto.OutputEmployeeDTO;
+import com.office.employees_storage_spring_framework.dao.EmployeeDAO;
 import com.office.employees_storage_spring_framework.dto.InputEmployeeDTO;
+import com.office.employees_storage_spring_framework.dto.OutputEmployeeDTO;
 import com.office.employees_storage_spring_framework.dto.UpdateEmployeeDTO;
 import com.office.employees_storage_spring_framework.exception.EmployeeNotFoundException;
 import com.office.employees_storage_spring_framework.model.Employee;
-import com.office.employees_storage_spring_framework.repository.EmployeeDAO;
+import com.office.employees_storage_spring_framework.utils.FetchApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,11 +25,13 @@ public class EmployeeService implements AppService {
         this.employeeDAO = employeeDAO;
     }
 
+    @Override
     public Employee addEmployee(InputEmployeeDTO employee) {
         Employee convertedEmployee = employeeDtoToEmployee(employee);
         return employeeDAO.save(convertedEmployee);
     }
 
+    @Override
     public void deleteEmployee(Long id) {
         OutputEmployeeDTO temployee = findEmployeeById(id);
         if (temployee != null)
@@ -37,13 +40,15 @@ public class EmployeeService implements AppService {
             throw new EmployeeNotFoundException("Employee by id: " + id + " not found.");
     }
 
+    @Override
     public List<OutputEmployeeDTO> findAllEmployees() {
-        return  employeeDAO.findAll()
+        return employeeDAO.findAll()
                 .stream()
                 .map(employee -> employeeToEmployeeDTO(employee))
                 .collect(Collectors.toList());
     }
 
+    @Override
     public OutputEmployeeDTO findEmployeeById(Long id) {
         Optional<Employee> optional = employeeDAO.findById(id);
 
@@ -61,10 +66,18 @@ public class EmployeeService implements AppService {
         throw new EmployeeNotFoundException("Employee by id: " + id + " not found.");
     }
 
+    @Override
     public Employee updateEmployee(Long id, UpdateEmployeeDTO updateEmployee) {
         Employee existedEmployee = getEmployeeById(id);
         return employeeDAO.save(updateEmployeeDTO(updateEmployee, existedEmployee));
     }
+
+    @Override
+    public Employee saveRandomEmployee() {
+        Employee employee = addEmployee(FetchApiResponse.fetchBody());
+        return employee;
+    }
+
 
     private OutputEmployeeDTO employeeToEmployeeDTO(Employee employee) {
         return OutputEmployeeDTO.builder()

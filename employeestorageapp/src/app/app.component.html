@@ -31,15 +31,6 @@
             <label><strong>Picture:</strong> {{employee.picture}}</label>
             <img [src]="employee.picture" alt="Employee Picture" style="max-width: 125px; height: auto;">
           </div>
-          <!-- <div class="search-group">
-            <label><strong>Phone number:</strong> {{employee.phoneNumber}}</label>
-          </div>
-          <div class="search-group">
-            <label><strong>Address:</strong> {{employee.address}}</label>
-          </div>
-          <div class="search-group">
-            <label><strong>Town:</strong> {{employee.town}}</label>
-          </div> -->
           <button type="submit" class="btn btn-primary" style="margin-left: 200px; width: 100px;" (click)="showUpdateForm = true">Update</button>
           <div *ngIf="showUpdateForm">
             <div class="search-group">
@@ -81,7 +72,10 @@
         </div> 
       </div>
       <div class="col" >
-        <h2>Add</h2>
+        <div class="button-container">
+          <h2>Add</h2>
+          <button (click)="generateEmployee()" class="btn btn-primary">Generate Employee</button>
+        </div>
         <form (ngSubmit)="addEmployee()" #employeeForm="ngForm" >
           <div class="form-group">
             <label for="title">Title: </label>
@@ -142,9 +136,10 @@
     
     <div class="row mt-5">
       <div class="col" style="display: flex; align-items: center; justify-content: center; flex-direction: column; margin-top: 50px;">
-        <h2>Employees list</h2>
-        <button class="btn btn-primary" (click)="getEmployees()" style="margin-bottom: 20px; width: 100px;">Refresh</button>
-      
+        <div class="button-container">
+          <h2>Employees list</h2>
+          <button class="btn btn-primary" (click)="getEmployees()" style="margin-bottom: 20px; width: 100px;">Refresh</button>
+        </div>
         <table class="table table-bordered">
           <thead>
             <tr>

@@ -9,3 +9,13 @@ td, th {
   form label {
     margin-right: 10px;
   }
+
+  .button-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .button-container h2 {
+    margin-right: 10px;
+  }
+  

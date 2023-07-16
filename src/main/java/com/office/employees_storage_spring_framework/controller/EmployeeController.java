@@ -1,7 +1,7 @@
 package com.office.employees_storage_spring_framework.controller;
 
-import com.office.employees_storage_spring_framework.dto.OutputEmployeeDTO;
 import com.office.employees_storage_spring_framework.dto.InputEmployeeDTO;
+import com.office.employees_storage_spring_framework.dto.OutputEmployeeDTO;
 import com.office.employees_storage_spring_framework.dto.UpdateEmployeeDTO;
 import com.office.employees_storage_spring_framework.model.Employee;
 import com.office.employees_storage_spring_framework.service.EmployeeService;
@@ -56,6 +56,12 @@ public class EmployeeController {
     public ResponseEntity<?> updateEmployee(@PathVariable("id") Long id) {
         service.deleteEmployee(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/random")
+    public ResponseEntity<Employee> saveRandomEmployee() {
+        Employee generatedEmployee = service.saveRandomEmployee();
+        return ResponseEntity.status(HttpStatus.CREATED).body(generatedEmployee);
     }
 
 }
