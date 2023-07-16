@@ -13,10 +13,11 @@ The application offers CRUD operations to:
 The project defines the following RESTful API endpoints:
 
 1. `POST /api/employee/add`: Creates a new employee
-2. `GET /api/employee/all`: Fetches the list of all employees
-3. `GET /api/employee/find/{id}`: Retrieve an employee by id
-4. `PUT /api/employee/update/{id}`: Updates an existing employee by id
-5. `DELETE /api/employee/delete/{id}`: Deletes an existing employee by id
+2. `POST /api/employee/random`: Generate and save a random employee
+3. `GET /api/employee/all`: Fetches the list of all employees
+4. `GET /api/employee/find/{id}`: Retrieve an employee by id
+5. `PUT /api/employee/update/{id}`: Updates an existing employee by id
+6. `DELETE /api/employee/delete/{id}`: Deletes an existing employee by id
 
 ## Technologies Used
 
